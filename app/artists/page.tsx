@@ -1,10 +1,29 @@
+"use client";
+
+import { useState } from "react";
+
 import ArtistCard from "../components/artists/ArtistCard";
 import { artists } from "../data/artists";
 
 export default function ArtistsPage() {
+  const [search, setSearch] = useState("");
+  const [genre, setGenre] = useState("All");
+
+  const filteredArtists = artists.filter((artist) => {
+    const matchesLocation = artist.location
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    const matchesGenre =
+      genre === "All" || artist.genre === genre;
+
+    return matchesLocation && matchesGenre;
+  });
+
   return (
     <main className="min-h-screen bg-[#f7f3ee] pt-32 px-6 md:px-10">
       <div className="max-w-7xl mx-auto">
+        {/* Heading */}
         <div className="mb-14">
           <p className="uppercase tracking-[0.3em] text-sm text-black/50 mb-4">
             Our Artists
@@ -15,32 +34,48 @@ export default function ArtistsPage() {
           </h1>
         </div>
 
+        {/* Filters */}
         <div className="flex flex-col md:flex-row gap-4 mb-12">
           <input
             type="text"
             placeholder="Search by location"
-            className="flex-1 px-5 py-4 rounded-full border border-black/10 bg-white/60"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="flex-1 px-5 py-4 rounded-full border border-black/10 bg-white/60 outline-none"
           />
 
-          <select className="px-5 py-4 rounded-full border border-black/10 bg-white/60">
-            <option>All Genres</option>
-            <option>Indie Acoustic</option>
-            <option>Soul & Jazz</option>
-            <option>Live Percussion</option>
+          <select
+            value={genre}
+            onChange={(e) => setGenre(e.target.value)}
+            className="px-5 py-4 rounded-full border border-black/10 bg-white/60 outline-none"
+          >
+            <option value="All">All Genres</option>
+            <option value="Indie Acoustic">
+              Indie Acoustic
+            </option>
+            <option value="Soul & Jazz">
+              Soul & Jazz
+            </option>
+            <option value="Live Percussion">
+              Live Percussion
+            </option>
           </select>
-
-          <button className="bg-black text-white px-8 rounded-full">
-            Search
-          </button>
         </div>
 
+        {/* Artists Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 pb-20">
-          {artists.map((artist) => (
-            <ArtistCard
-              key={artist.id}
-              artist={artist}
-            />
-          ))}
+          {filteredArtists.length > 0 ? (
+            filteredArtists.map((artist) => (
+              <ArtistCard
+                key={artist.id}
+                artist={artist}
+              />
+            ))
+          ) : (
+            <p className="text-lg text-black/60">
+              No artists found.
+            </p>
+          )}
         </div>
       </div>
     </main>
