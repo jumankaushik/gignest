@@ -1,30 +1,36 @@
-import BookingModal from "./BookingModel";
 import Link from "next/link";
-
+import Image from "next/image";
+import BookingModal from "./BookingModel";
 
 type Props = {
   artist: {
+    id: number;
     name: string;
     genre: string;
     location: string;
     image: string;
+    bio: string;
+    intro: string;
+    availability: string[];
+    instagram: string;
+    youtube: string;
   };
 };
 
 export default function ArtistCard({ artist }: Props) {
   return (
-
     <div className="group overflow-hidden rounded-[30px] glass-card">
-    <Link href={`/artists/${artist.id}`}>
-      <div className="overflow-hidden">
-        <img
-          src={artist.image}
-          alt={artist.name}
-          className="h-[420px] w-full object-cover transition duration-700 group-hover:scale-105"
+      <Link href={`/artists/${artist.id}`}>
+        <div className="overflow-hidden">
+          <Image
+            src={artist.image}
+            alt={artist.name}
+            width={500}
+            height={700}
+            className="h-[420px] w-full object-cover"
         />
-      </div>
-    </Link>
-
+        </div>
+      </Link>
 
       <div className="p-6">
         <div className="flex items-center justify-between">
@@ -42,6 +48,10 @@ export default function ArtistCard({ artist }: Props) {
             {artist.location}
           </span>
         </div>
+
+        <p className="mt-5 text-black/70 leading-relaxed">
+          {artist.bio}
+        </p>
 
         <BookingModal />
       </div>

@@ -9,6 +9,13 @@ export default function ArtistsPage() {
   const [search, setSearch] = useState("");
   const [genre, setGenre] = useState("All");
 
+  // Dynamic genres
+  const genres = [
+    "All",
+    ...new Set(artists.map((artist) => artist.genre)),
+  ];
+
+  // Filtering logic
   const filteredArtists = artists.filter((artist) => {
     const matchesLocation = artist.location
       .toLowerCase()
@@ -49,16 +56,14 @@ export default function ArtistsPage() {
             onChange={(e) => setGenre(e.target.value)}
             className="px-5 py-4 rounded-full border border-black/10 bg-white/60 outline-none"
           >
-            <option value="All">All Genres</option>
-            <option value="Indie Acoustic">
-              Indie Acoustic
-            </option>
-            <option value="Soul & Jazz">
-              Soul & Jazz
-            </option>
-            <option value="Live Percussion">
-              Live Percussion
-            </option>
+            {genres.map((item) => (
+              <option
+                key={item}
+                value={item}
+              >
+                {item}
+              </option>
+            ))}
           </select>
         </div>
 
