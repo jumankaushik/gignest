@@ -1,5 +1,6 @@
 import { artists } from "@/app/data/artists";
 import Image from "next/image";
+import Link from "next/link";
 import BookingModal from "@/app/components/artists/BookingModel";
 
 export default async function ArtistDetailPage({
@@ -23,6 +24,14 @@ export default async function ArtistDetailPage({
 
   return (
     <main className="min-h-screen bg-[#f7f3ee] pt-28">
+        <div className="mb-10">
+            <Link
+                href="/artists"
+                className="inline-flex items-center gap-2 text-black/60 hover:text-black transition"
+            >
+                ← Back to Artists
+            </Link>
+</div>
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Artist Image */}

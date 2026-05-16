@@ -2,10 +2,24 @@ import Image from "next/image";
 
 export default function Experiences() {
   const reels = [
-    "Live Wedding Performance",
-    "Sunset Acoustic Session",
-    "Private Rooftop Gig",
-  ];
+  {
+    title: "Live Wedding Performance",
+    image: "https://picsum.photos/500/900?random=1",
+    link: "https://instagram.com",
+  },
+
+  {
+    title: "Sunset Acoustic Session",
+    image: "https://picsum.photos/500/900?random=2",
+    link: "https://instagram.com",
+  },
+
+  {
+    title: "Private Rooftop Gig",
+    image: "https://picsum.photos/500/900?random=3",
+    link: "https://instagram.com",
+  },
+];
 
   return (
     <section
@@ -23,29 +37,31 @@ export default function Experiences() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {reels.map((reel, index) => (
-            <div
-              key={index}
-              className="aspect-[9/16] rounded-[30px] overflow-hidden relative group cursor-pointer"
+            <a
+                key={index}
+                href={reel.link}
+                target="_blank"
+                className="aspect-[9/16] rounded-[30px] overflow-hidden relative group cursor-pointer block"
             >
-              <img
-                src={`https://picsum.photos/500/900?random=${index}`}
-                alt={reel}
+                <img
+                src={reel.image}
+                alt={reel.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
-              />
+                />
 
-              <div className="absolute inset-0 bg-black/30" />
+                <div className="absolute inset-0 bg-black/30" />
 
-              <div className="absolute bottom-6 left-6 text-white">
+                <div className="absolute bottom-6 left-6 text-white">
                 <p className="text-xl font-semibold">
-                  {reel}
+                    {reel.title}
                 </p>
 
                 <p className="text-white/80 text-sm mt-2">
-                  Watch on Instagram
+                    Watch on Instagram
                 </p>
-              </div>
-            </div>
-          ))}
+                </div>
+            </a>
+))}
         </div>
       </div>
     </section>
