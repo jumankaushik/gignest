@@ -8,7 +8,7 @@ export default function Navbar() {
 
         <nav className="hidden md:flex items-center gap-8 text-sm">
           <a href="#about">About</a>
-          <a href="#artists">Artists</a>
+          <a href="/artists">Artists</a>
           <a href="#experience">Experiences</a>
           <a href="#contact">Contact</a>
         </nav>
